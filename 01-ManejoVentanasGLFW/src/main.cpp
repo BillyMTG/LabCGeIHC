@@ -126,9 +126,13 @@ void mouseButtonCallback(GLFWwindow* window, int button, int state, int mod) {
 		switch (button) {
 		case GLFW_MOUSE_BUTTON_RIGHT:
 			std::cout << "lastMousePos.y:" << lastMousePosY << std::endl;
+			colorStatus = 20;
+			//glClearColor(0.3, 0.0, 0.4, 0.0);
 			break;
 		case GLFW_MOUSE_BUTTON_LEFT:
 			std::cout << "lastMousePos.x:" << lastMousePosX << std::endl;
+			//glClearColor(0.1, 0.0, 0.3, 0.0);
+			colorStatus = 19;
 			break;
 		case GLFW_MOUSE_BUTTON_MIDDLE:
 			std::cout << "lastMousePos.x:" << lastMousePosX << std::endl;
@@ -161,7 +165,10 @@ void applicationLoop() {
 			glClearColor(0.0, 0.0, 1.0, 0.0);
 		else if (colorStatus == 3)
 			glClearColor(0.0, 0.0, 0.0, 0.0);
-
+		else if (colorStatus == 20)
+			glClearColor(0.3, 0.0, 0.2, 0.0);
+		else if (colorStatus == 20)
+			glClearColor(0.1, 0.0, 0.1, 0.0);
 		glfwSwapBuffers(window);
 	}
 }
