@@ -117,14 +117,64 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	Vertex vertices2[] =
 	{
-	{ glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec3(1.0f, 0.0f, 0.0f) },
+	/*{ glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec3(1.0f, 0.0f, 0.0f) },
 	{ glm::vec3(0.5f, -0.5f,  0.5f), glm::vec3(1.0f, 0.0f, 0.0f) },
 	{ glm::vec3(0.5f, 0.5f,  0.5f), glm::vec3(1.0f, 0.0f, 0.0f) },
 	{ glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f) },
+
 	{ glm::vec3(0.5f, -0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f) },
 	{ glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(0.0f, 1.0f, 0.0f) },
 	{ glm::vec3(0.5f, 0.5f, -0.5f), glm::vec3(0.0f, 1.0f, 0.0f) },
 	{ glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f) },
+	
+	{ glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.803f) },
+	{ glm::vec3(0.5f, 0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.803f) },
+	{ glm::vec3(-0.5f, 0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.803f) },
+	{ glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.803f) },
+
+	{ glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f) },
+	{ glm::vec3(-0.5f, 0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f) },
+	{ glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f) },
+	{ glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f) },
+
+	{ glm::vec3(0.5f, -0.5f, 0.5f), glm::vec3(0.294f, 0.0f, 0.509f) },
+	{ glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(0.294f, 0.0f, 0.509f) },
+	{ glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.294f, 0.0f, 0.509f) },
+	{ glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(0.294f, 0.0f, 0.509f) },
+
+	{ glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 0.843f, 0.0f) },
+	{ glm::vec3(0.5f, 0.5f, -0.5f), glm::vec3(1.0f, 0.843f, 0.0f) },
+	{ glm::vec3(-0.5f, 0.5f, -0.5f), glm::vec3(1.0f, 0.843f, 0.0f) },
+	{ glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 0.843f, 0.0f) },*/
+
+	//ESTRELLA
+	{ glm::vec3(0.5f, -0.5f, 0.5f), glm::vec3(1.0f, 0.843f, 0.0f) },
+	{ glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(1.0f, 0.843f, 0.0f) },
+	{ glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(1.0f, 0.843f, 0.0f) },
+
+	{ glm::vec3(0.5f, -0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f) },
+	{ glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f) },
+	{ glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f) },
+
+	{ glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.803f) },
+	{ glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(0.0f, 0.0f, 0.803f) },
+	{ glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.0f, 0.0f, 0.803f) },
+
+	{ glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.294f, 0.0f, 0.509f) },
+	{ glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(0.294f, 0.0f, 0.509f) },
+	{ glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(0.294f, 0.0f, 0.509f) },
+
+	{ glm::vec3(0.5f, -0.5f,  0.5f), glm::vec3(1.0f, 0.0f, 0.0f) },
+	{ glm::vec3(0.5f, -0.5f,  -0.5f), glm::vec3(1.0f, 0.0f, 0.0f) },
+	{ glm::vec3(-0.5f, -0.5f,  -0.5f), glm::vec3(1.0f, 0.0f, 0.0f) },
+	{ glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f) },
+
+
+
+
+
+
+
 	};
 
 	// Se definen los indices de las conexiones con los vertices.
@@ -144,10 +194,27 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	};
 
 	GLuint indices2[] = {
-		0, 1, 2,
+		/*0, 1, 2,
 		0, 2, 3,
-		4,5,6,
-		4,6,7,
+		4, 5, 6,
+		4, 6, 7,
+		8, 9, 11,
+		9, 10,11,
+		12,13,15,
+		13,14,15,
+		16,17,19,
+		17,18,19,
+		20,21,23,
+		21,22,23,*/
+
+		0,1,2,
+		3,4,5,
+		6,7,8,
+		9,10,11,
+		12,13,15,
+		13,14,15,
+
+
 	};
 
 	size_t bufferSize = sizeof(vertices);
@@ -320,28 +387,214 @@ void applicationLoop() {
 		shader.setMatrix4("projection", 1, false, glm::value_ptr(projection));
 		shader.setMatrix4("view", 1, false, glm::value_ptr(view));
 		glm::mat4 model = glm::mat4(1.0f);
-		//model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0, 1, 0));
+
+		/*//model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0, 1, 0));
 		model = glm::translate(model, glm::vec3(0.0, 2.0, -3.0));
-		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));*/
 
 		// Se indica el buffer de datos y la estructura de estos utilizando solo el id del VAO
 		glBindVertexArray(VAO2);
 		// Primitiva de ensamble
 		//glDrawArrays(GL_TRIANGLES, 0, 36, GL_UNSIGNED_INIT,0);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.0, 2.0, -3.0));
+		//ESTRELLA
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 1.0, -5.0));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0, 0, 1));
+		model = glm::scale(model, glm::vec3(1.0f, 2.0f, 1.0f));
 		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
-		
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.0, 0.0, -3.0));
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0, 1, 0));
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 2.5, -5.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.0, 0.0, -5.0));
+		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0, 0, 1));
+		model = glm::scale(model, glm::vec3(1.0f, 2.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.5, 0.0, -5.0));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0, 0, 1));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, -1.0, -5.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 0, 1));
+		model = glm::scale(model, glm::vec3(1.0f, 2.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, -2.5, -5.0));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0, 0, 1));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 0.0, -5.0));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0, 0, 1));
+		model = glm::scale(model, glm::vec3(1.0f, 2.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(2.5, 0.0, -5.0));
+		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0, 0, 1));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		//C
+		/*model = glm::translate(glm::mat4(1.0f), glm::vec3(-8.0, 0.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
 		model = glm::scale(model, glm::vec3(1.0f, 3.0f, 1.0f));
 		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-7.5, 2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-7.5, -2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		//G
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-4.5, 2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-5.5, 0.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 3.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-4.5, -2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.5, -0.5, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 2.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-4.25, 0.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(0.5f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		//2
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.0, 2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.5, 1.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 3.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-0.5, 0.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.5, -1.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 3.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, -2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		//0
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(3.5, 2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(4.5, 0.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 3.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(2.5, 0.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 3.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(3.5, -2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		//1
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(6.5, 0.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		//9
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(9.5, 2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(8.5, 0.5, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 2.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(9.5, 0.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(10.5, -0.5, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(1.0f, 4.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(9.0, -2.0, -22.0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		shader.setMatrix4("model", 1, false, glm::value_ptr(model));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);*/
+
+		
 		glBindVertexArray(0);
+
+		
 
 		glfwSwapBuffers(window);
 	}
