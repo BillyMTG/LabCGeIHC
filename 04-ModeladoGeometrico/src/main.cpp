@@ -40,7 +40,10 @@ std::shared_ptr<FirstPersonCamera> camera(new FirstPersonCamera());
 Sphere sphere1(20, 20);
 Sphere sphere2(20, 20);
 Cylinder cylinder1(20, 20, 0.5, 0.5);
+Cylinder cylinder2(20, 20, 0.5, 0.5);
 Box box1;
+Box box2;
+Box box3;
 
 bool exitApp = false;
 int lastMousePosX, offsetx= 0;
@@ -117,21 +120,33 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//Es un metodo0 setter que coloca el apuntador al sheder
 	sphere1.setShader(&shader);
 	//setter para poner el color de la geometria
-	sphere1.setColor(glm::vec4(0.3, 0.3, 1.0, 1.0));
+	sphere1.setColor(glm::vec4(1.0, 0.843, 0.0, 1.0));
 
 	sphere2.init();
 	//Es un metodo0 setter que coloca el apuntador al sheder
 	sphere2.setShader(&shader);
 	//setter para poner el color de la geometria
-	sphere2.setColor(glm::vec4(0.1, 0.1, 1.0, 1.0));
+	sphere2.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 
 	cylinder1.init();
 	cylinder1.setShader(&shader);
-	cylinder1.setColor(glm::vec4(0.3, 0.3, 1.0, 1.0));
+	cylinder1.setColor(glm::vec4(1.0, 0.843, 0.0, 1.0));
+
+	cylinder2.init();
+	cylinder2.setShader(&shader);
+	cylinder2.setColor(glm::vec4(0.803, 0.521, 0.247, 1.0));
 
 	box1.init();
 	box1.setShader(&shader);
-	box1.setColor(glm::vec4(0.3, 0.3, 1.0, 1.0));
+	box1.setColor(glm::vec4(1.0, 0.843, 0.0, 1.0));
+
+	box2.init();
+	box2.setShader(&shader);
+	box2.setColor(glm::vec4(0.803, 0.521, 0.247,1.0));
+
+	box3.init();
+	box3.setShader(&shader);
+	box3.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 
 	camera->setPosition(glm::vec3(2.0, 0.0, 4.0));
 }
@@ -273,12 +288,70 @@ void applicationLoop() {
 
 		//ojo
 		glm::mat4 ojo = glm::translate(model, glm::vec3(0.25f, 0.25f, 0.05f));
-		sphere1.enableWireMode();
-		sphere1.render(glm::scale(ojo, glm::vec3(0.2, 0.2, 0.1)));
+		sphere2.enableWireMode();
+		sphere2.render(glm::scale(ojo, glm::vec3(0.2, 0.2, 0.1)));
 		
 		glm::mat4 ojo2 = glm::translate(model, glm::vec3(-0.25f, 0.25f, 0.05f));
+		sphere2.enableWireMode();
+		sphere2.render(glm::scale(ojo2, glm::vec3(0.2, 0.2, 0.1)));
+
+		//Lado Izquierdo
+		//
+		//articulacionIZq
+		glm::mat4 a1 = glm::translate(model, glm::vec3(-0.5f, 0.0f, 0.0f));
 		sphere1.enableWireMode();
-		sphere1.render(glm::scale(ojo2, glm::vec3(0.2, 0.2, 0.1)));
+		sphere1.render(glm::scale(a1, glm::vec3(0.1, 0.1, 0.1)));
+
+		//huesoIzq
+		glm::mat4 h1 = glm::translate(a1, glm::vec3(-0.25f, 0.0f, 0.0f));
+		h1 = glm::rotate(h1, glm::radians(90.0f), glm::vec3(0, 0, 1.0));
+		cylinder1.enableWireMode();
+		cylinder1.render(glm::scale(h1, glm::vec3(0.1, 0.5, 0.1)));
+
+		//articulacion2Izq
+		glm::mat4 a2 = glm::translate(a1, glm::vec3(-0.5f, 0.0f, 0.0f));
+		sphere1.enableWireMode();
+		sphere1.render(glm::scale(a2, glm::vec3(0.1, 0.1, 0.1)));
+
+		//hueso2Izq
+		glm::mat4 h2 = glm::translate(a2, glm::vec3(-0.25f, 0.0f, 0.0f));
+		h2 = glm::rotate(h2, glm::radians(90.0f), glm::vec3(0, 0, 1.0));
+		cylinder1.enableWireMode();
+		cylinder1.render(glm::scale(h2, glm::vec3(0.1, 0.5, 0.1)));
+
+		//pantalon
+		glm::mat4 p = glm::translate(model, glm::vec3(0.0f, -0.625f, 0.0f));
+		//box2.enableWireMode();
+		box2.render(glm::scale(p, glm::vec3(1.0, 0.25, 0.1)));
+
+		glm::mat4 p2 = glm::translate(p, glm::vec3(-0.25f, -0.25f, 0.0f));
+		cylinder2.enableWireMode();
+		cylinder2.render(glm::scale(p2, glm::vec3(0.25, 0.25, 0.1)));
+
+		glm::mat4 p3 = glm::translate(p, glm::vec3(0.25f, -0.25f, 0.0f));
+		cylinder2.enableWireMode();
+		cylinder2.render(glm::scale(p3, glm::vec3(0.25, 0.25, 0.1)));
+
+		//pies
+
+		glm::mat4 pie = glm::translate(p2, glm::vec3(0.0f, -0.375f, 0.0f));
+		cylinder1.enableWireMode();
+		cylinder1.render(glm::scale(pie, glm::vec3(0.1, 0.5, 0.1)));
+
+		glm::mat4 pie2 = glm::translate(p3, glm::vec3(0.0f, -0.375f, 0.0f));
+		cylinder1.enableWireMode();
+		cylinder1.render(glm::scale(pie2, glm::vec3(0.1, 0.5, 0.1)));
+
+		//boca
+		glm::mat4 b = glm::translate(model, glm::vec3(0.0f, -0.30f, 0.05f));
+		//box3.enableWireMode();
+		box3.render(glm::scale(b, glm::vec3(0.50, 0.15, 0.1)));
+
+		//nariz 
+		glm::mat4 n = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		n = glm::rotate(n, glm::radians(90.0f), glm::vec3(1.0, 0, 0.0));
+		//cylinder1.enableWireMode();
+		cylinder1.render(glm::scale(n, glm::vec3(0.1, 0.5, 0.1)));
 
 
 
