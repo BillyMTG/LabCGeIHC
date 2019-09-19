@@ -41,15 +41,28 @@ Box box1;
 Cylinder cylinder2(20, 20, 0.5, 0.5);
 Box box2;
 Box box3;
+///////////R2D2
+Sphere sphereR2D(20, 20);
+Box boxR2D; 
+Cylinder cylinderR2D(20, 20, 0.5, 0.5);
+Box boxR2D2;
+Sphere sphereR2D2(20, 20);
+
 
 bool exitApp = false;
 int lastMousePosX, offsetX = 0;
 int lastMousePosY, offsetY = 0;
 
-float rot0 = 0.0, dz = 0.0;
+float rot0 = 0.0, dz = 0.0; 
+
+//R2D2
+float rot0r2 = 0.0, dzr2 = 0.0;
 
 //se declaran las rotaciones
 float rot1 = 0.0, rot2 = 0.0, rot3 = 0.0, rot4 = 0.0, rot5 = 0.0, rot6 = 0.0, rot7 = 0.0, rot8 = 0.0;
+//rotaciones de r2d2
+float rot1r2 = 0.0, rot2r2 = 0.0, rot3r2 = 0.0, rot4r2 = 0.0;
+
 bool sentido = true;
 
 double deltaTime;
@@ -152,6 +165,28 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	box3.setShader(&shader);
 	box3.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 
+	//////////////////////////R2D2
+	cylinderR2D.init();
+	cylinderR2D.setShader(&shader);
+	cylinderR2D.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
+
+	boxR2D.init();
+	boxR2D.setShader(&shader);
+	boxR2D.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
+
+	sphereR2D.init();
+	sphereR2D.setShader(&shader);
+	sphereR2D.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
+
+	boxR2D2.init();
+	boxR2D2.setShader(&shader);
+	boxR2D2.setColor(glm::vec4(0.0, 0.0, 0.803,1.0));
+
+	sphereR2D2.init();
+	sphereR2D2.setShader(&shader);
+	sphereR2D2.setColor(glm::vec4(0.0, 0.0, 0.0, 1.0));
+
+
 
 	camera->setPosition(glm::vec3(0.0, 0.0, 4.0));
 }
@@ -164,8 +199,18 @@ void destroy() {
 
 	// Destrucción de los VAO, EBO, VBO
 	sphere1.destroy();
+	sphere2.destroy();
 	cylinder1.destroy();
+	cylinder2.destroy();
 	box1.destroy();
+	box2.destroy();
+    box3.destroy();
+    
+	cylinderR2D.destroy();
+	boxR2D.destroy();
+	sphereR2D.destroy();
+	boxR2D2.destroy();
+	sphereR2D2.destroy();
 
 	shader.destroy();
 }
@@ -239,6 +284,17 @@ bool processInput(bool continueApplication){
 		dz += 0.001;
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		dz -= 0.001;
+
+	//Rotacion De r2d2
+	
+	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS )
+		rot0r2 -= 0.001;
+	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS )
+		rot0r2 += 0.001;
+	if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS )
+		dzr2 += 0.001;
+	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS )
+		dzr2 -= 0.001;
 	
 	
 	//Para agrgar mas moviemiento
@@ -279,6 +335,24 @@ bool processInput(bool continueApplication){
 	else if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS && !sentido)
 		rot8 -= 0.001;
 
+	//moviemiento R2D2
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+		sentido = false;
+
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS && sentido)
+		rot1r2 += 0.001;
+	else if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS && !sentido)
+		rot1r2 -= 0.001;
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && sentido)
+		rot2r2 += 0.001;
+	else if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && !sentido)
+		rot2r2 -= 0.001;
+	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS && sentido)
+		rot3r2 += 0.001;
+	else if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS && !sentido)
+		rot3r2 -= 0.001;
+	
+
 	sentido = true;
 
 	glfwPollEvents();
@@ -290,6 +364,8 @@ void applicationLoop() {
 	bool psi = true;
 
 	glm::mat4 model = glm::mat4(1.0f);
+
+	glm::mat4 modelR2D = glm::mat4(1.0f);
 	
 	while (psi) {
 		psi = processInput(true);
@@ -340,7 +416,7 @@ void applicationLoop() {
 		//sphere2.enableWireMode();
 		sphere2.render(glm::scale(ojo2, glm::vec3(0.2, 0.2, 0.1)));*/
 
-		model = glm::translate(model,glm::vec3(0, dz, 0));
+		model = glm::translate(model,glm::vec3(0.0, dz, 0));
 		model = glm::rotate(model, rot0, glm::vec3(0, 1, 0.0));
 		box1.enableWireMode();
 		box1.render(glm::scale(model, glm::vec3(1.0, 1.0, 0.1)));
@@ -443,10 +519,91 @@ void applicationLoop() {
 		//cylinder1.enableWireMode();
 		cylinder1.render(glm::scale(n, glm::vec3(0.1, 0.5, 0.1)));
 
+		/////////////////R2D2::::
+
+		modelR2D = glm::translate(modelR2D, glm::vec3(0.0, dzr2, 0));
+		modelR2D = glm::rotate(modelR2D, rot0r2, glm::vec3(0, 1, 0.0));
+		
+		
+		glm::mat4 cuerpo = glm::translate(modelR2D, glm::vec3(4.0f, 0.0f, 0.0f));
+		//cuerpo = glm::rotate(cuerpo, rot0r2, glm::vec3(0, 1, 0.0));
+		//cylinderR2D.enableWireMode();
+		cylinderR2D.render(glm::scale(cuerpo, glm::vec3(1.0, 1.0, 1.0)));
+
+		//articulaciion
+		glm::mat4 art1 = glm::translate(cuerpo, glm::vec3(0.5f, 0.0f, 0.0f));
+		//sphereR2D.enableWireMode();
+		sphereR2D.render(glm::scale(art1, glm::vec3(0.1, 0.1, 0.1)));
+		art1 = glm::rotate(art1, rot1r2, glm::vec3(1.0, 0.0, 0));
+		
+
+		//articulaciionizq
+		glm::mat4 art1izq = glm::translate(cuerpo, glm::vec3(-0.5f, 0.0f, 0.0f));
+		//sphereR2D.enableWireMode();
+		sphereR2D.render(glm::scale(art1izq, glm::vec3(0.1, 0.1, 0.1)));
+		art1izq = glm::rotate(art1izq, rot2r2, glm::vec3(1.0, 0.0, 0));
+
+		//brazo
+		glm::mat4 brazo = glm::translate(art1, glm::vec3(0.1f, -0.2f, 0.0f));
+		//boxR2D.enableWireMode();
+		boxR2D.render(glm::scale(brazo, glm::vec3(0.2, 0.7, 0.1)));
+
+		//brazoizq
+		glm::mat4 brazo2 = glm::translate(art1izq, glm::vec3(-0.1f, -0.2f, 0.0f));
+		//boxR2D.enableWireMode();
+		boxR2D.render(glm::scale(brazo2, glm::vec3(0.2, 0.7, 0.1)));
+
+		//articulacion cabeza
+		glm::mat4 artcabeza = glm::translate(cuerpo, glm::vec3(0.0f, 0.0f, 0.0f));
+		sphereR2D.enableWireMode();
+		sphereR2D.render(glm::scale(artcabeza, glm::vec3(0.1, 0.1, 0.1)));
+		artcabeza = glm::rotate(artcabeza, rot3r2, glm::vec3(0.0, 1.0, 0));
+
+		//cabeza
+		glm::mat4 cabeza = glm::translate(artcabeza, glm::vec3(0.0f, 0.55f, 0.0f));
+		//sphereR2D.enableWireMode();
+		sphereR2D.render(glm::scale(cabeza, glm::vec3(1.0, 1.0, 1.0)));
+
+		//articulacion pies
+		glm::mat4 artpie = glm::translate(cuerpo, glm::vec3(0.0f, -0.5f, 0.0f));
+		sphereR2D.enableWireMode();
+		sphereR2D.render(glm::scale(artpie, glm::vec3(0.1, 0.1, 0.1)));
+		
+
+		//pìes
+		glm::mat4 pies = glm::translate(artpie, glm::vec3(0.0f, -0.05f, 0.0f));
+		//boxR2D.enableWireMode();
+		boxR2D.render(glm::scale(pies, glm::vec3(0.4, 0.1, 1.0)));
+
+		//extras
+		glm::mat4 eye = glm::translate(cabeza, glm::vec3(0.0f, 0.0f, 0.5f));
+		sphereR2D2.enableWireMode();
+		sphereR2D2.render(glm::scale(eye, glm::vec3(0.1, 0.1, 0.05)));
+		
+		glm::mat4 o = glm::translate(cabeza, glm::vec3(0.0f, 0.0f, 0.5f));
+		//boxR2D.enableWireMode();
+		boxR2D2.render(glm::scale(o, glm::vec3(0.2, 0.2, 0.01)));
+
+		glm::mat4 estomago = glm::translate(cuerpo, glm::vec3(0.0f, -0.1f, 0.5f));
+		//boxR2D.enableWireMode();
+		boxR2D2.render(glm::scale(estomago, glm::vec3(0.2, 0.5, 0.0)));
+
+		glm::mat4 om = glm::translate(cuerpo, glm::vec3(0.0f, -0.1f, 0.5f));
+		//sphereR2D2.enableWireMode();
+		sphereR2D2.render(glm::scale(om, glm::vec3(0.1, 0.5, 0.1)));
+
+		
+
+
+
+
 		shader.turnOff();
 
 		dz = 0;
 		rot0 = 0;
+
+		dzr2 = 0;
+		rot0r2 = 0;
 
 		glfwSwapBuffers(window);
 	}
