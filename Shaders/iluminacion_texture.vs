@@ -17,6 +17,5 @@ void main(){
 	our_uv = in_uv;
 	our_uv.x = our_uv.x + offsetX;
 	if(scaleUV.x != 0 && scaleUV.y != 0)
-		our_uv = our_uv * scaleUV;
+		our_uv *= scaleUV;
 }
-
