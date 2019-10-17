@@ -84,6 +84,18 @@ Box ParedG;
 Box ParedH;
 Box ParedI;
 Box ParedJ;
+Box ParedFront;
+Box Pa;
+Box Pb;
+Box Pc;
+Box Pd;
+Box Pe;
+Box Sag;
+Box Va;
+Box Vb;
+Box Vc;
+Box Vd;
+Box Techo;
 
 //models complex instances
 Model modelRock;
@@ -94,7 +106,7 @@ Model modelBalon;
  
 
 
-GLuint textureID1, textureID2, textureID3, textureID4, textureID5, textureID6;
+GLuint textureID1, textureID2, textureID3, textureID4, textureID5, textureID6, textureID7, textureID8, textureID9, textureID10, textureID11, textureID12;
 GLuint skyboxTextureID;
 
 GLenum types[6] = {
@@ -289,6 +301,46 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	ParedJ.init();
 	ParedJ.setShader(&shaderMulLighting);
+
+	ParedFront.init();
+	ParedFront.setShader(&shaderMulLighting);
+
+	Pa.init();
+	Pa.setShader(&shaderMulLighting);
+
+	Pb.init();
+	Pb.setShader(&shaderMulLighting);
+
+	Pc.init();
+	Pc.setShader(&shaderMulLighting);
+
+	Pd.init();
+	Pd.setShader(&shaderMulLighting);
+
+	Pe.init();
+	Pe.setShader(&shaderMulLighting);
+
+	Sag.init();
+	Sag.setShader(&shaderMulLighting);
+
+	Va.init();
+	Va.setShader(&shaderMulLighting);
+
+	Vb.init();
+	Vb.setShader(&shaderMulLighting);
+
+	Vc.init();
+	Vc.setShader(&shaderMulLighting);
+
+	Vd.init();
+	Vd.setShader(&shaderMulLighting);
+
+	Techo.init();
+	Techo.setShader(&shaderMulLighting);
+
+
+
+
 
 	modelRock.loadModel("../models/rock/rock.obj");
 	modelRock.setShader(&shaderMulLighting);
@@ -499,6 +551,203 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	// Libera la memoria de la textura
 	texture6.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture7("../Textures/textura 65.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture7.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture7.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID7);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID7);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture7.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture8("../Textures/ladrillo (18).jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture8.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture8.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID8);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID8);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture8.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture9("../Textures/ventana2.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture9.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture9.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID9);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID9);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture9.freeImage(bitmap);
+
+
+	// Definiendo la textura a utilizar
+	Texture texture10("../Textures/saguan.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture10.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture10.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID10);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID10);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture10.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture11("../Textures/puerta.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture11.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture11.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID11);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID11);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture11.freeImage(bitmap);
+
+
+	// Definiendo la textura a utilizar
+	Texture texture12("../Textures/telha 35.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	// Voltear la imagen
+	bitmap = texture12.loadImage(true);
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture12.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID12);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID12);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture12.freeImage(bitmap);
+
+
 
 	// Carga de texturas para el skybox
 	Texture skyboxTexture = Texture("");
@@ -922,7 +1171,7 @@ void applicationLoop() {
 		glm::mat4 modelparedA = glm::mat4(1.0);
 		modelparedA = glm::translate(modelparedA, glm::vec3(-59.5, 5.0, 0.0));
 		modelparedA = glm::scale(modelparedA, glm::vec3(1.0, 10.0, 40.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedA.render(modelparedA);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -930,7 +1179,7 @@ void applicationLoop() {
 		glm::mat4 modelparedB = glm::mat4(1.0);
 		modelparedB = glm::translate(modelparedB, glm::vec3(-48.0, 5.0, 10.5));
 		modelparedB = glm::scale(modelparedB, glm::vec3(22.0, 10.0, 1.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedB.render(modelparedB);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -938,7 +1187,7 @@ void applicationLoop() {
 		glm::mat4 modelparedC = glm::mat4(1.0);
 		modelparedC = glm::translate(modelparedC, glm::vec3(-37.5, 5.0, -4.5));
 		modelparedC = glm::scale(modelparedC, glm::vec3(1.0, 10.0, 29.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedC.render(modelparedC);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -946,7 +1195,7 @@ void applicationLoop() {
 		glm::mat4 modelparedD = glm::mat4(1.0);
 		modelparedD = glm::translate(modelparedD, glm::vec3(-35.0, 5.0, -19.5));
 		modelparedD = glm::scale(modelparedD, glm::vec3(48.0, 10.0, 1.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedD.render(modelparedD);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -954,7 +1203,7 @@ void applicationLoop() {
 		glm::mat4 modelparedE = glm::mat4(1.0);
 		modelparedE = glm::translate(modelparedE, glm::vec3(-10.5, 5.0, 0.0));
 		modelparedE = glm::scale(modelparedE, glm::vec3(1.0, 10.0, 40.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedE.render(modelparedE);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -962,7 +1211,7 @@ void applicationLoop() {
 		glm::mat4 modelparedF = glm::mat4(1.0);
 		modelparedF = glm::translate(modelparedF, glm::vec3(-20.5, 5.0, -9.0));
 		modelparedF = glm::scale(modelparedF, glm::vec3(1.0, 10.0, 20.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedF.render(modelparedF);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -970,7 +1219,7 @@ void applicationLoop() {
 		glm::mat4 modelparedG = glm::mat4(1.0);
 		modelparedG = glm::translate(modelparedG, glm::vec3(-51.0, 5.0, -2.5));
 		modelparedG = glm::scale(modelparedG, glm::vec3(16.0, 10.0, 1.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedG.render(modelparedG);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -978,7 +1227,7 @@ void applicationLoop() {
 		glm::mat4 modelparedH = glm::mat4(1.0);
 		modelparedH = glm::translate(modelparedH, glm::vec3(-43.5, 5.0, -11.0));
 		modelparedH = glm::scale(modelparedH, glm::vec3(1.0, 10.0, 17.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedH.render(modelparedH);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -986,7 +1235,7 @@ void applicationLoop() {
 		glm::mat4 modelparedI = glm::mat4(1.0);
 		modelparedI = glm::translate(modelparedI, glm::vec3(-29.0, 5.0, 0.5));
 		modelparedI = glm::scale(modelparedI, glm::vec3(16.0, 10.0, 1.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedI.render(modelparedI);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -994,9 +1243,111 @@ void applicationLoop() {
 		glm::mat4 modelparedJ = glm::mat4(1.0);
 		modelparedJ = glm::translate(modelparedJ, glm::vec3(-29.0, 5.0, -11.5));
 		modelparedJ = glm::scale(modelparedJ, glm::vec3(16.0, 10.0, 1.0));
-		glBindTexture(GL_TEXTURE_2D, textureID4);
+		glBindTexture(GL_TEXTURE_2D, textureID7);
 		ParedJ.render(modelparedJ);
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedFront
+		glm::mat4 modelparedFront = glm::mat4(1.0);
+		modelparedFront = glm::translate(modelparedFront, glm::vec3(-35.0, 5.0, 19.5));
+		modelparedFront = glm::scale(modelparedFront, glm::vec3(48.0, 10.0, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID8);
+		ParedFront.render(modelparedFront);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//Saguan
+		glm::mat4 modelSag = glm::mat4(1.0);
+		modelSag = glm::translate(modelSag, glm::vec3(-28.0, 4.0, 20.0));
+		modelSag = glm::scale(modelSag, glm::vec3(14.0, 8.0, 0.05));
+		glBindTexture(GL_TEXTURE_2D, textureID10);
+		Sag.render(modelSag);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaA
+		glm::mat4 modelPa = glm::mat4(1.0);
+		modelPa = glm::translate(modelPa, glm::vec3(-39.0, 4.0, 20.0));
+		modelPa = glm::scale(modelPa, glm::vec3(4.0, 8.0, 0.05));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pa.render(modelPa);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaB
+		glm::mat4 modelPb = glm::mat4(1.0);
+		modelPb = glm::translate(modelPb, glm::vec3(-37.0, 4.0, 4.5));
+		modelPb = glm::scale(modelPb, glm::vec3(0.05, 8.0, 1.5));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pb.render(modelPb);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaC
+		glm::mat4 modelPc = glm::mat4(1.0);
+		modelPc = glm::translate(modelPc, glm::vec3(-38.0, 4.0, -3.0));
+		modelPc = glm::scale(modelPc, glm::vec3(0.05, 8.0, 4.0));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pc.render(modelPc);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaD
+		glm::mat4 modelPd = glm::mat4(1.0);
+		modelPd = glm::translate(modelPd, glm::vec3(-43.0, 4.0, -6.0));
+		modelPd = glm::scale(modelPd, glm::vec3(0.05, 8.0, 4.0));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pd.render(modelPd);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaE
+		glm::mat4 modelPe = glm::mat4(1.0);
+		modelPe = glm::translate(modelPe, glm::vec3(-38.0, 4.0, -15.5));
+		modelPe = glm::scale(modelPe, glm::vec3(0.05, 8.0, 1.5));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pe.render(modelPe);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//VentanaA
+		glm::mat4 modelVa = glm::mat4(1.0);
+		modelVa = glm::translate(modelVa, glm::vec3(-48.0, 5.0, 11.0));
+		modelVa = glm::scale(modelVa, glm::vec3(10.0, 5.0, 0.05));
+		glBindTexture(GL_TEXTURE_2D, textureID9);
+		Va.render(modelVa);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//VentanaB
+		glm::mat4 modelVb = glm::mat4(1.0);
+		modelVb = glm::translate(modelVb, glm::vec3(-29.0, 5.0, 1.0));
+		modelVb = glm::scale(modelVb, glm::vec3(8.0, 5.0, 0.05));
+		glBindTexture(GL_TEXTURE_2D, textureID9);
+		Vb.render(modelVb);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//VentanaC
+		glm::mat4 modelVc = glm::mat4(1.0);
+		modelVc = glm::translate(modelVc, glm::vec3(-20.0, 5.0, -5.5));
+		modelVc = glm::scale(modelVc, glm::vec3(0.05, 5.0, 7.0));
+		glBindTexture(GL_TEXTURE_2D, textureID9);
+		Vc.render(modelVc);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//VentanaD
+		glm::mat4 modelVd = glm::mat4(1.0);
+		modelVd = glm::translate(modelVd, glm::vec3(-20.0, 8.0, -15.5));
+		modelVd = glm::scale(modelVd, glm::vec3(0.05, 2.0, 3.0));
+		glBindTexture(GL_TEXTURE_2D, textureID9);
+		Vd.render(modelVd);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//Techo
+		glm::mat4 modelTecho = glm::mat4(1.0);
+		modelTecho = glm::translate(modelTecho, glm::vec3(-39.5, 10.5, -4.0));
+		modelTecho = glm::scale(modelTecho, glm::vec3(41.0, 1.0, 32.0));
+		glBindTexture(GL_TEXTURE_2D, textureID12);
+		Techo.render(modelTecho);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+
+
+		
+
+
 
 		
 
