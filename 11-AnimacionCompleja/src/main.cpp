@@ -80,6 +80,11 @@ Model modelRock;
 Model modelRailRoad;
 Model modelAircraft;
 Model modelEclipseChasis;
+Model modelEclipseWheelsFrontal;
+Model modelEclipseWheelsRear;
+Model modelHeliChasis;
+Model modelHeliMid;
+
 
 GLuint textureID1, textureID2, textureID3, textureID4, textureID5;
 GLuint skyboxTextureID;
@@ -111,6 +116,7 @@ int modelSelected = 0;
 bool enableCountSelected = true;
 
 double deltaTime;
+double currTime, lastTime;
 
 // Se definen todos las funciones.
 void reshapeCallback(GLFWwindow *Window, int widthRes, int heightRes);
@@ -259,8 +265,22 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelAircraft.setShader(&shaderMulLighting);
 
 	// Eclipse
-	modelEclipseChasis.loadModel("../models/Eclipse/2003eclipse.obj");
+	modelEclipseChasis.loadModel("../models/Eclipse/2003eclipse_chasis.obj");
 	modelEclipseChasis.setShader(&shaderMulLighting);
+
+	modelEclipseWheelsFrontal.loadModel("../models/Eclipse/2003eclipse_frontal_wheels.obj");
+	modelEclipseWheelsFrontal.setShader(&shaderMulLighting);
+
+	modelEclipseWheelsRear.loadModel("../models/Eclipse/2003eclipse_rear_wheels.obj");
+	modelEclipseWheelsRear.setShader(&shaderMulLighting);
+
+
+	//Helicoptero
+	modelHeliChasis.loadModel("../models/Helicopter/Mi_24_chasis.obj");
+	modelHeliChasis.setShader(&shaderMulLighting);
+	modelHeliMid.loadModel("../models/Helicopter/Mi_24_heli.obj");
+	modelHeliMid.setShader(&shaderMulLighting);
+
 
 	camera->setPosition(glm::vec3(0.0, 3.0, 4.0));
 
@@ -590,8 +610,18 @@ void applicationLoop() {
 	int state = 0;
 	float advanceCount = 0.0;
 	float rotCount = 0.0;
+	float rotWheels = 0.0;
+	float rotWheelsy = 0.0;
+	float rotHeliHeli = 0.0;
 
+	lastTime= TimeManager::Instance().GetTime();
 	while (psi) {
+		currTime = TimeManager::Instance().GetTime();
+		if (currTime - lastTime < 0.016666667) {
+			glfwPollEvents();
+			continue;
+		}
+		lastTime = currTime;
 		psi = processInput(true);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -952,6 +982,36 @@ void applicationLoop() {
 		modelEclipseChasis.render(modelMatrixEclipseChasis);
 		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 modelMatrixEclipseFrontalWheels = glm::mat4(modelMatrixEclipseChasis);
+		modelMatrixEclipseFrontalWheels = glm::translate(modelMatrixEclipseFrontalWheels, glm::vec3(0, 1.06285, 4.11795));
+		modelMatrixEclipseFrontalWheels = glm::rotate(modelMatrixEclipseFrontalWheels, rotWheelsy, glm::vec3(0, 1, 0));
+		modelMatrixEclipseFrontalWheels = glm::rotate(modelMatrixEclipseFrontalWheels, rotWheels, glm::vec3(1, 0, 0));
+		modelMatrixEclipseFrontalWheels = glm::translate(modelMatrixEclipseFrontalWheels, glm::vec3(0, -1.06285, -4.11795));
+		modelEclipseWheelsFrontal.render(modelMatrixEclipseFrontalWheels);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 modelMatrixEclipseRearWheels = glm::mat4(modelMatrixEclipseChasis);
+		modelMatrixEclipseRearWheels = glm::translate(modelMatrixEclipseRearWheels, glm::vec3(0, 1.05128, -4.3465));
+		modelMatrixEclipseRearWheels = glm::rotate(modelMatrixEclipseRearWheels, rotWheels, glm::vec3(1, 0, 0));
+		modelMatrixEclipseRearWheels = glm::translate(modelMatrixEclipseRearWheels, glm::vec3(0, -1.05128, 4.3465));
+		modelEclipseWheelsRear.render(modelMatrixEclipseRearWheels);
+		glActiveTexture(GL_TEXTURE0);
+
+		//Helicoptero
+		glm::mat4 modelMatrixHeliChasis = glm::mat4(1.0);
+		modelMatrixHeliChasis = glm::translate(modelMatrixHeliChasis, glm::vec3(-10.0, 5.0, 5.0));
+		modelHeliChasis.render(modelMatrixHeliChasis);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 modelMatrixHeliHeli = glm::mat4(modelMatrixHeliChasis);
+		modelMatrixHeliHeli = glm::translate(modelMatrixHeliHeli, glm::vec3(-0.003344, 1.88318, -0.254566));
+		modelMatrixHeliHeli = glm::rotate(modelMatrixHeliHeli, rotHeliHeli, glm::vec3(0, 1, 0));
+		modelMatrixHeliHeli = glm::translate(modelMatrixHeliHeli, glm::vec3(0.003344, -1.88318, 0.254566));
+		modelHeliMid.render(modelMatrixHeliHeli);
+		glActiveTexture(GL_TEXTURE0);
+
+
+
 		/*******************************************
 		 * Skybox
 		 *******************************************/
@@ -976,6 +1036,8 @@ void applicationLoop() {
 		dz = 0;
 		rot0 = 0;
 		offX += 0.1;
+		rotWheels += 0.1;
+		rotHeliHeli += 0.01;
 
 		/*******************************************
 		 * State machines
@@ -985,8 +1047,13 @@ void applicationLoop() {
 		case 0:
 			modelMatrixEclipse = glm::translate(modelMatrixEclipse, glm::vec3(0.0, 0.0, 0.1));
 			advanceCount += 0.1;
+			rotWheelsy -= 0.01;
+			if (rotWheelsy < 0) {
+				rotWheelsy=0;
+			}
 			if(advanceCount > 10.0){
 				advanceCount = 0;
+				rotWheelsy = 0.0;
 				state = 1;
 			}
 			break;
@@ -994,6 +1061,10 @@ void applicationLoop() {
 			modelMatrixEclipse = glm::translate(modelMatrixEclipse, glm::vec3(0.0, 0.0, 0.025));
 			modelMatrixEclipse = glm::rotate(modelMatrixEclipse, glm::radians(0.5f), glm::vec3(0, 1, 0));
 			rotCount += 0.5f;
+			rotWheelsy += 0.01;
+			if (rotWheelsy > glm::radians(15.0)){
+				rotWheelsy = glm::radians(15.0);
+			}
 			if(rotCount >= 90.0){
 				rotCount = 0;
 				state = 0;
