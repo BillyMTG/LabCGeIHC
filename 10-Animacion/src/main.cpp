@@ -77,8 +77,37 @@ Box boxWall;
 Model modelRock;
 Model modelRailRoad;
 Model modelAircraft;
+Model modelEclipse;
+Model modelHeli;
+Model modelMesa;
 
-GLuint textureID1, textureID2, textureID3, textureID4, textureID5;
+Box Piso;
+Box Pasto;
+Box ParedA;
+Box ParedB;
+Box ParedC;
+Box ParedD;
+Box ParedE;
+Box ParedF;
+Box ParedG;
+Box ParedH;
+Box ParedI;
+Box ParedJ;
+Box ParedFront;
+Box Pa;
+Box Pb;
+Box Pc;
+Box Pd;
+Box Pe;
+Box Sag;
+Box Va;
+Box Vb;
+Box Vc;
+Box Vd;
+Box Techo;
+Box Camino;
+
+GLuint textureID1, textureID2, textureID3, textureID4, textureID5, textureID6, textureID7, textureID8, textureID9, textureID10, textureID11, textureID12, textureID13;
 GLuint skyboxTextureID;
 
 GLenum types[6] = {
@@ -244,6 +273,81 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	boxWall.init();
 	boxWall.setShader(&shaderMulLighting);
 
+	Piso.init();
+	Piso.setShader(&shaderMulLighting);
+
+	Pasto.init();
+	Pasto.setShader(&shaderMulLighting);
+
+	ParedA.init();
+	ParedA.setShader(&shaderMulLighting);
+
+	ParedB.init();
+	ParedB.setShader(&shaderMulLighting);
+
+	ParedC.init();
+	ParedC.setShader(&shaderMulLighting);
+
+	ParedD.init();
+	ParedD.setShader(&shaderMulLighting);
+
+	ParedE.init();
+	ParedE.setShader(&shaderMulLighting);
+
+	ParedF.init();
+	ParedF.setShader(&shaderMulLighting);
+
+	ParedG.init();
+	ParedG.setShader(&shaderMulLighting);
+
+	ParedH.init();
+	ParedH.setShader(&shaderMulLighting);
+
+	ParedI.init();
+	ParedI.setShader(&shaderMulLighting);
+
+	ParedJ.init();
+	ParedJ.setShader(&shaderMulLighting);
+
+	ParedFront.init();
+	ParedFront.setShader(&shaderMulLighting);
+
+	Pa.init();
+	Pa.setShader(&shaderMulLighting);
+
+	Pb.init();
+	Pb.setShader(&shaderMulLighting);
+
+	Pc.init();
+	Pc.setShader(&shaderMulLighting);
+
+	Pd.init();
+	Pd.setShader(&shaderMulLighting);
+
+	Pe.init();
+	Pe.setShader(&shaderMulLighting);
+
+	Sag.init();
+	Sag.setShader(&shaderMulLighting);
+
+	Va.init();
+	Va.setShader(&shaderMulLighting);
+
+	Vb.init();
+	Vb.setShader(&shaderMulLighting);
+
+	Vc.init();
+	Vc.setShader(&shaderMulLighting);
+
+	Vd.init();
+	Vd.setShader(&shaderMulLighting);
+
+	Techo.init();
+	Techo.setShader(&shaderMulLighting);
+
+	Camino.init();
+	Camino.setShader(&shaderMulLighting);
+
 	modelRock.loadModel("../models/rock/rock.obj");
 	modelRock.setShader(&shaderMulLighting);
 
@@ -252,6 +356,16 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	modelAircraft.loadModel("../models/Aircraft_obj/E 45 Aircraft_obj.obj");
 	modelAircraft.setShader(&shaderMulLighting);
+
+	modelEclipse.loadModel("../models/Eclipse/2003eclipse.obj");
+	modelEclipse.setShader(&shaderMulLighting);
+
+	modelHeli.loadModel("../models/Helicopter/Mi_24.obj");
+	modelHeli.setShader(&shaderMulLighting);
+
+	modelMesa.loadModel("../models/Wood_Table/Wood_Table.obj");
+	modelMesa.setShader(&shaderMulLighting);
+
 
 	camera->setPosition(glm::vec3(0.0, 3.0, 4.0));
 
@@ -388,8 +502,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Definiendo la textura a utilizar
 	Texture texture5("../Textures/cesped.jpg");
 	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
-	bitmap = texture5.loadImage(true);
+	bitmap = texture5.loadImage();
 	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texture5.convertToData(bitmap, imageWidth, imageHeight);
 	// Creando la textura con id 1
@@ -409,13 +522,274 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
 		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
-		GL_BGRA, GL_UNSIGNED_BYTE, data);
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
 		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
-	} else
+	}
+	else
 		std::cout << "Failed to load texture" << std::endl;
 	// Libera la memoria de la textura
 	texture5.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture6("../Textures/madera piso.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture6.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture6.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID6);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID6);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture6.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture7("../Textures/textura 65.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture7.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture7.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID7);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID7);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture7.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture8("../Textures/ladrillo (18).jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture8.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture8.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID8);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID8);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture8.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture9("../Textures/ventana2.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture9.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture9.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID9);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID9);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture9.freeImage(bitmap);
+
+
+	// Definiendo la textura a utilizar
+	Texture texture10("../Textures/saguan.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture10.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture10.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID10);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID10);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture10.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture11("../Textures/puerta.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	bitmap = texture11.loadImage();
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture11.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID11);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID11);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture11.freeImage(bitmap);
+
+
+	// Definiendo la textura a utilizar
+	Texture texture12("../Textures/telha 35.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	// Voltear la imagen
+	bitmap = texture12.loadImage(true);
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture12.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID12);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID12);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture12.freeImage(bitmap);
+
+	// Definiendo la textura a utilizar
+	Texture texture13("../Textures/asfalto 17.jpg");
+	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	// Voltear la imagen
+	bitmap = texture13.loadImage(true);
+	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
+	data = texture13.convertToData(bitmap, imageWidth, imageHeight);
+	// Creando la textura con id 1
+	glGenTextures(1, &textureID13);
+	// Enlazar esa textura a una tipo de textura de 2D.
+	glBindTexture(GL_TEXTURE_2D, textureID13);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Verifica si se pudo abrir la textura
+	if (data) {
+		// Transferis los datos de la imagen a memoria
+		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
+		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
+		// a los datos
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	// Libera la memoria de la textura
+	texture13.freeImage(bitmap);
 
 	// Carga de texturas para el skybox
 	Texture skyboxTexture = Texture("");
@@ -569,8 +943,22 @@ void applicationLoop() {
 	float ratio = 30.0;
 	glm::mat4 matrixModelAircraft = glm::mat4(1.0);
 	matrixModelAircraft = glm::translate(matrixModelAircraft, glm::vec3(8.0, 2.0, -10.0));
+
+	//Carro
+	glm::mat4 matrixModelEclipse = glm::mat4(1.0);
+	//matrixModelEclipse = glm::scale(matrixModelEclipse, glm::vec3(0.5, 0.5, 0.5));
+	matrixModelEclipse = glm::translate(matrixModelEclipse, glm::vec3(-40.0, 0.5, 24.0));
+	matrixModelEclipse = glm::rotate(matrixModelEclipse, glm::radians(90.0f), glm::vec3(0, 1.0, 0));
+
+	//Helicoptero
+	glm::mat4 matrixModelHeli = glm::mat4(1.0);
+	matrixModelHeli = glm::translate(matrixModelHeli, glm::vec3(-34.0, 12.0, -4.0));
+	
+
 	float offsetAircraftAdvance = 0.0;
 	float offsetAirfraftRot = 0.0;
+	float advanceCount = 0.0;
+	float rotCount = 0.0;
 	int state =0;
 	while (psi) {
 		psi = processInput(true);
@@ -664,7 +1052,7 @@ void applicationLoop() {
 		// Esto es para la luces pointlights //nomero de luces a utilizar de tipo pointlights =3
 		shaderMulLighting.setInt("pointLightCount", 5);
 		//posicion de la luz con indice [0]                                                      valores iguales que el posicionamiento de la primitiva
-		shaderMulLighting.setVectorFloat3("pointLights[0].position", glm::value_ptr((glm::vec3(-5.1, 4.5, -3.5))));
+		shaderMulLighting.setVectorFloat3("pointLights[0].position", glm::value_ptr((glm::vec3(-44.0, 9.0, -2.0))));
 		//propiedades de la luz verde
 		shaderMulLighting.setVectorFloat3("pointLights[0].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 		shaderMulLighting.setVectorFloat3("pointLights[0].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -674,7 +1062,7 @@ void applicationLoop() {
 		shaderMulLighting.setFloat("pointLights[0].quadratic", 0.004);
 
 		//propiedades de la luz roja
-		shaderMulLighting.setVectorFloat3("pointLights[1].position", glm::value_ptr((glm::vec3(-5.1, 4.8, -5.0))));
+		shaderMulLighting.setVectorFloat3("pointLights[1].position", glm::value_ptr((glm::vec3(-46.0, 9.0, -2.0))));
 		shaderMulLighting.setVectorFloat3("pointLights[1].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 		shaderMulLighting.setVectorFloat3("pointLights[1].light.diffuse", glm::value_ptr(glm::vec3(0.01, 0.0, 0.0)));
 		shaderMulLighting.setVectorFloat3("pointLights[1].light.specular", glm::value_ptr(glm::vec3(0.6, 0.0, 0.0)));
@@ -683,7 +1071,7 @@ void applicationLoop() {
 		shaderMulLighting.setFloat("pointLights[1].quadratic", 0.004);
 
 		//propiedades de la luz azul
-		shaderMulLighting.setVectorFloat3("pointLights[2].position", glm::value_ptr((glm::vec3(-5.1, 4.5, -6.5))));
+		shaderMulLighting.setVectorFloat3("pointLights[2].position", glm::value_ptr((glm::vec3(-48.0, 9.0, -2.0))));
 		shaderMulLighting.setVectorFloat3("pointLights[2].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 		shaderMulLighting.setVectorFloat3("pointLights[2].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.0, 0.01)));
 		shaderMulLighting.setVectorFloat3("pointLights[2].light.specular", glm::value_ptr(glm::vec3(0.0, 0.0, 0.6)));
@@ -692,7 +1080,7 @@ void applicationLoop() {
 		shaderMulLighting.setFloat("pointLights[2].quadratic", 0.004);
 
 		//propiedades de la luz amarilla
-		shaderMulLighting.setVectorFloat3("pointLights[3].position", glm::value_ptr((glm::vec3(-14.9, 4.8, -5.0))));
+		shaderMulLighting.setVectorFloat3("pointLights[3].position", glm::value_ptr((glm::vec3(-50.0, 9.0, -2.0))));
 		shaderMulLighting.setVectorFloat3("pointLights[3].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 		shaderMulLighting.setVectorFloat3("pointLights[3].light.diffuse", glm::value_ptr(glm::vec3(0.01, 0.01, 0.0)));
 		shaderMulLighting.setVectorFloat3("pointLights[3].light.specular", glm::value_ptr(glm::vec3(0.6, 0.6, 0.0)));
@@ -701,7 +1089,7 @@ void applicationLoop() {
 		shaderMulLighting.setFloat("pointLights[3].quadratic", 0.004);
 
 		//propiedades de la luz morada
-		shaderMulLighting.setVectorFloat3("pointLights[4].position", glm::value_ptr((glm::vec3(-14.9, 4.8, -3.0))));
+		shaderMulLighting.setVectorFloat3("pointLights[4].position", glm::value_ptr((glm::vec3(-52.0, 9.0, -2.0))));
 		shaderMulLighting.setVectorFloat3("pointLights[4].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 		shaderMulLighting.setVectorFloat3("pointLights[4].light.diffuse", glm::value_ptr(glm::vec3(0.01, 0.0, 0.01)));
 		shaderMulLighting.setVectorFloat3("pointLights[4].light.specular", glm::value_ptr(glm::vec3(0.6, 0.0, 0.6)));
@@ -711,27 +1099,27 @@ void applicationLoop() {
 
 		//Es para colocar las esferas de las luces
 		sphereLamp.setScale(glm::vec3(0.1, 0.1, 0.2));
-		sphereLamp.setPosition(glm::vec3(-5.1, 4.5, -3.5));
+		sphereLamp.setPosition(glm::vec3(-44.0, 9.0, -2.0));
 		sphereLamp.setColor(glm::vec4(0.0, 1.0, 0.0, 1.0));
 		sphereLamp.render();
 
 		sphereLamp.setScale(glm::vec3(0.1, 0.1, 0.2));
-		sphereLamp.setPosition(glm::vec3(-5.1, 4.8, -5.0));
+		sphereLamp.setPosition(glm::vec3(-46.0, 9.0, -2.0));
 		sphereLamp.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
 		sphereLamp.render();
 
 		sphereLamp.setScale(glm::vec3(0.1, 0.1, 0.2));
-		sphereLamp.setPosition(glm::vec3(-5.1, 4.5, -6.5));
+		sphereLamp.setPosition(glm::vec3(-48.0, 9.0, -2.0));
 		sphereLamp.setColor(glm::vec4(0.0, 0.0, 1.0, 1.0));
 		sphereLamp.render();
 
 		sphereLamp.setScale(glm::vec3(0.1, 0.1, 0.2));
-		sphereLamp.setPosition(glm::vec3(-14.9, 4.8, -5.0));
+		sphereLamp.setPosition(glm::vec3(-50.0, 9.0, -2.0));
 		sphereLamp.setColor(glm::vec4(0.8, 0.8, 0.0, 1.0));
 		sphereLamp.render();
 
 		sphereLamp.setScale(glm::vec3(0.1, 0.1, 0.2));
-		sphereLamp.setPosition(glm::vec3(-14.9, 4.8, -3.0));
+		sphereLamp.setPosition(glm::vec3(-52.0, 9.0, -2.0));
 		sphereLamp.setColor(glm::vec4(0.5, 0, 0.5, 1.0));
 		sphereLamp.render();
 
@@ -926,6 +1314,220 @@ void applicationLoop() {
 		modelAircraft.render(matrixModelAircraft);
 		glActiveTexture(GL_TEXTURE0);
 
+		
+		modelEclipse.render(matrixModelEclipse);
+		glActiveTexture(GL_TEXTURE0);
+
+		modelHeli.render(matrixModelHeli);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixModelMesa = glm::mat4(1.0);
+		matrixModelMesa = glm::translate(matrixModelMesa, glm::vec3(-48.0, 1.0, 5.0));
+		modelMesa.render(matrixModelMesa);
+		glActiveTexture(GL_TEXTURE0); 
+
+		/////////////////////////////////////////////////7
+		//CASA
+		//Piso
+		glm::mat4 modelpiso = glm::mat4(1.0);
+		modelpiso = glm::translate(modelpiso, glm::vec3(-40.0, 0.0, 0.0));
+		modelpiso = glm::scale(modelpiso, glm::vec3(40.0, 0.01, 40.0));
+		glBindTexture(GL_TEXTURE_2D, textureID6);
+		Piso.render(modelpiso);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//pasto
+		glm::mat4 modelpasto = glm::mat4(1.0);
+		modelpasto = glm::translate(modelpasto, glm::vec3(-15.0, 0.0, 0.0));
+		modelpasto = glm::scale(modelpasto, glm::vec3(10.0, 0.01, 40.0));
+		glBindTexture(GL_TEXTURE_2D, textureID5);
+		Pasto.render(modelpasto);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedA
+		glm::mat4 modelparedA = glm::mat4(1.0);
+		modelparedA = glm::translate(modelparedA, glm::vec3(-59.5, 5.0, 0.0));
+		modelparedA = glm::scale(modelparedA, glm::vec3(1.0, 10.0, 40.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedA.render(modelparedA);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedB
+		glm::mat4 modelparedB = glm::mat4(1.0);
+		modelparedB = glm::translate(modelparedB, glm::vec3(-48.0, 5.0, 10.5));
+		modelparedB = glm::scale(modelparedB, glm::vec3(22.0, 10.0, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedB.render(modelparedB);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedC
+		glm::mat4 modelparedC = glm::mat4(1.0);
+		modelparedC = glm::translate(modelparedC, glm::vec3(-37.5, 5.0, -4.5));
+		modelparedC = glm::scale(modelparedC, glm::vec3(1.0, 10.0, 29.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedC.render(modelparedC);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedD
+		glm::mat4 modelparedD = glm::mat4(1.0);
+		modelparedD = glm::translate(modelparedD, glm::vec3(-35.0, 5.0, -19.5));
+		modelparedD = glm::scale(modelparedD, glm::vec3(48.0, 10.0, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedD.render(modelparedD);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedE
+		glm::mat4 modelparedE = glm::mat4(1.0);
+		modelparedE = glm::translate(modelparedE, glm::vec3(-10.5, 5.0, 0.0));
+		modelparedE = glm::scale(modelparedE, glm::vec3(1.0, 10.0, 40.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedE.render(modelparedE);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedF
+		glm::mat4 modelparedF = glm::mat4(1.0);
+		modelparedF = glm::translate(modelparedF, glm::vec3(-20.5, 5.0, -9.0));
+		modelparedF = glm::scale(modelparedF, glm::vec3(1.0, 10.0, 20.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedF.render(modelparedF);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedG
+		glm::mat4 modelparedG = glm::mat4(1.0);
+		modelparedG = glm::translate(modelparedG, glm::vec3(-51.0, 5.0, -2.5));
+		modelparedG = glm::scale(modelparedG, glm::vec3(16.0, 10.0, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedG.render(modelparedG);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedH
+		glm::mat4 modelparedH = glm::mat4(1.0);
+		modelparedH = glm::translate(modelparedH, glm::vec3(-43.5, 5.0, -11.0));
+		modelparedH = glm::scale(modelparedH, glm::vec3(1.0, 10.0, 17.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedH.render(modelparedH);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedI
+		glm::mat4 modelparedI = glm::mat4(1.0);
+		modelparedI = glm::translate(modelparedI, glm::vec3(-29.0, 5.0, 0.5));
+		modelparedI = glm::scale(modelparedI, glm::vec3(16.0, 10.0, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedI.render(modelparedI);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedJ
+		glm::mat4 modelparedJ = glm::mat4(1.0);
+		modelparedJ = glm::translate(modelparedJ, glm::vec3(-29.0, 5.0, -11.5));
+		modelparedJ = glm::scale(modelparedJ, glm::vec3(16.0, 10.0, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		ParedJ.render(modelparedJ);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//ParedFront
+		glm::mat4 modelparedFront = glm::mat4(1.0);
+		modelparedFront = glm::translate(modelparedFront, glm::vec3(-35.0, 5.0, 19.5));
+		modelparedFront = glm::scale(modelparedFront, glm::vec3(48.0, 10.0, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID8);
+		ParedFront.render(modelparedFront);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//Saguan
+		glm::mat4 modelSag = glm::mat4(1.0);
+		modelSag = glm::translate(modelSag, glm::vec3(-28.0, 4.0, 20.0));
+		modelSag = glm::scale(modelSag, glm::vec3(14.0, 8.0, 0.05));
+		glBindTexture(GL_TEXTURE_2D, textureID10);
+		Sag.render(modelSag);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaA
+		glm::mat4 modelPa = glm::mat4(1.0);
+		modelPa = glm::translate(modelPa, glm::vec3(-39.0, 4.0, 20.0));
+		modelPa = glm::scale(modelPa, glm::vec3(4.0, 8.0, 0.05));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pa.render(modelPa);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaB
+		glm::mat4 modelPb = glm::mat4(1.0);
+		modelPb = glm::translate(modelPb, glm::vec3(-37.0, 4.0, 4.5));
+		modelPb = glm::scale(modelPb, glm::vec3(0.05, 8.0, 1.5));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pb.render(modelPb);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaC
+		glm::mat4 modelPc = glm::mat4(1.0);
+		modelPc = glm::translate(modelPc, glm::vec3(-38.0, 4.0, -3.0));
+		modelPc = glm::scale(modelPc, glm::vec3(0.05, 8.0, 4.0));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pc.render(modelPc);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaD
+		glm::mat4 modelPd = glm::mat4(1.0);
+		modelPd = glm::translate(modelPd, glm::vec3(-43.0, 4.0, -6.0));
+		modelPd = glm::scale(modelPd, glm::vec3(0.05, 8.0, 4.0));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pd.render(modelPd);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//PuertaE
+		glm::mat4 modelPe = glm::mat4(1.0);
+		modelPe = glm::translate(modelPe, glm::vec3(-38.0, 4.0, -15.5));
+		modelPe = glm::scale(modelPe, glm::vec3(0.05, 8.0, 1.5));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		Pe.render(modelPe);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//VentanaA
+		glm::mat4 modelVa = glm::mat4(1.0);
+		modelVa = glm::translate(modelVa, glm::vec3(-48.0, 5.0, 11.0));
+		modelVa = glm::scale(modelVa, glm::vec3(10.0, 5.0, 0.05));
+		glBindTexture(GL_TEXTURE_2D, textureID9);
+		Va.render(modelVa);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//VentanaB
+		glm::mat4 modelVb = glm::mat4(1.0);
+		modelVb = glm::translate(modelVb, glm::vec3(-29.0, 5.0, 1.0));
+		modelVb = glm::scale(modelVb, glm::vec3(8.0, 5.0, 0.05));
+		glBindTexture(GL_TEXTURE_2D, textureID9);
+		Vb.render(modelVb);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//VentanaC
+		glm::mat4 modelVc = glm::mat4(1.0);
+		modelVc = glm::translate(modelVc, glm::vec3(-20.0, 5.0, -5.5));
+		modelVc = glm::scale(modelVc, glm::vec3(0.05, 5.0, 7.0));
+		glBindTexture(GL_TEXTURE_2D, textureID9);
+		Vc.render(modelVc);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//VentanaD
+		glm::mat4 modelVd = glm::mat4(1.0);
+		modelVd = glm::translate(modelVd, glm::vec3(-20.0, 8.0, -15.5));
+		modelVd = glm::scale(modelVd, glm::vec3(0.05, 2.0, 3.0));
+		glBindTexture(GL_TEXTURE_2D, textureID9);
+		Vd.render(modelVd);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//Techo
+		glm::mat4 modelTecho = glm::mat4(1.0);
+		modelTecho = glm::translate(modelTecho, glm::vec3(-39.5, 10.5, -4.0));
+		modelTecho = glm::scale(modelTecho, glm::vec3(41.0, 1.0, 32.0));
+		glBindTexture(GL_TEXTURE_2D, textureID12);
+		Techo.render(modelTecho);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//Camino
+		glm::mat4 modelCamino = glm::mat4(1.0);
+		modelCamino = glm::translate(modelCamino, glm::vec3(-30.0, 0.0, 24.0));
+		modelCamino = glm::scale(modelCamino, glm::vec3(60.0, 0.01, 8.0));
+		glBindTexture(GL_TEXTURE_2D, textureID13);
+		Camino.render(modelCamino);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
 		if (angle > 2 * M_PI)
 			angle = 0.0;
 		else
@@ -952,22 +1554,47 @@ void applicationLoop() {
 		case 0:
 				std::cout << "Advance" << std::endl;
 				//-0.001 debe ser igual
-				matrixModelAircraft = glm::translate(matrixModelAircraft, glm::vec3(0.0, 0.0, -0.01));
+				/*matrixModelAircraft = glm::translate(matrixModelAircraft, glm::vec3(0.0, 0.0, -0.01));
+				
 				offsetAircraftAdvance += 0.01;
 				if (offsetAircraftAdvance > 5.0) {
 					offsetAircraftAdvance = 0.0;
 					state = 1;
+				}*/
+
+				matrixModelEclipse = glm::translate(matrixModelEclipse, glm::vec3(0.0, 0.0, 0.1));
+				matrixModelHeli = glm::translate(matrixModelHeli, glm::vec3(0.0, 0.1, 0.0));
+				advanceCount += 0.1;
+		
+				if (advanceCount > 20.0) {
+					advanceCount = 0;
+					state = 1;
 				}
-					break;
+				
+				break;
+				
 		case 1:
 			std::cout << "Turn" << std::endl;
-			matrixModelAircraft = glm::translate(matrixModelAircraft, glm::vec3(0.0, 0.0, -0.01));
+			/*matrixModelAircraft = glm::translate(matrixModelAircraft, glm::vec3(0.0, 0.0, -0.01));
+			
 			matrixModelAircraft = glm::rotate(matrixModelAircraft, glm::radians(0.05f), glm::vec3(0, 1, 0));
+			
 			offsetAirfraftRot += 0.05;
 			if (offsetAirfraftRot > 90.0) {
 				offsetAirfraftRot =0.0;
 				state =0;
+			}*/
+
+			matrixModelEclipse = glm::translate(matrixModelEclipse, glm::vec3(0.0, 0.0, 0.0));
+			matrixModelEclipse = glm::rotate(matrixModelEclipse, glm::radians(1.0f), glm::vec3(0, 1, 0));
+			matrixModelHeli = glm::translate(matrixModelHeli, glm::vec3(0.0, -0.11111, 0.0));
+			rotCount += 0.5f;
+			
+			if (rotCount >= 90.0) {
+				rotCount = 0;
+				state = 0;
 			}
+			
 			break;
 
 		}
