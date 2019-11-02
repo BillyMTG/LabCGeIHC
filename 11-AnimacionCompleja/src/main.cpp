@@ -84,6 +84,10 @@ Model modelEclipseWheelsFrontal;
 Model modelEclipseWheelsRear;
 Model modelHeliChasis;
 Model modelHeliMid;
+Model modelHeli;
+Model modelLambo;
+Model modelLamboChasis;
+Model modelLamboLeftDor;
 
 
 GLuint textureID1, textureID2, textureID3, textureID4, textureID5;
@@ -274,8 +278,18 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelEclipseWheelsRear.loadModel("../models/Eclipse/2003eclipse_rear_wheels.obj");
 	modelEclipseWheelsRear.setShader(&shaderMulLighting);
 
+	//Lambo
+	modelLambo.loadModel("../models/Lamborginhi_Aventador_OBJ/Lamborghini_Aventador.obj");
+	modelLambo.setShader(&shaderMulLighting);
+	modelLamboChasis.loadModel("../models/Lamborginhi_Aventador_OBJ/Lamborghini_Aventador_chasis.obj");
+	modelLamboChasis.setShader(&shaderMulLighting);
+	modelLamboLeftDor.loadModel("../models/Lamborginhi_Aventador_OBJ/Lamborghini_Aventador_left_dor.obj");
+	modelLamboLeftDor.setShader(&shaderMulLighting);
+
 
 	//Helicoptero
+	modelHeli.loadModel("../models/Helicopter/Mi_24.obj");
+	modelHeli.setShader(&shaderMulLighting);
 	modelHeliChasis.loadModel("../models/Helicopter/Mi_24_chasis.obj");
 	modelHeliChasis.setShader(&shaderMulLighting);
 	modelHeliMid.loadModel("../models/Helicopter/Mi_24_heli.obj");
@@ -607,12 +621,35 @@ void applicationLoop() {
 	float ratio = 30.0;
 	glm::mat4 modelMatrixEclipse = glm::mat4(1.0f);
 	modelMatrixEclipse = glm::translate(modelMatrixEclipse, glm::vec3(20, 0, 10.0));
+	//Helicoptero
+	glm::mat4 matrixModelHeli = glm::mat4(1.0);
+	matrixModelHeli = glm::translate(matrixModelHeli, glm::vec3(-34.0, 12.0, -4.0));
+
+	//Lambo
+	glm::mat4 matrixModelLambo = glm::mat4(1.0);
+	matrixModelLambo = glm::translate(matrixModelLambo, glm::vec3(0.0, 0.0, -10.0));
+	//matrixModelLambo = glm::scale(matrixModelLambo, glm::vec3(2.0, 2.0, 2.0));
 	int state = 0;
 	float advanceCount = 0.0;
 	float rotCount = 0.0;
 	float rotWheels = 0.0;
 	float rotWheelsy = 0.0;
 	float rotHeliHeli = 0.0;
+	int stateH = 0;
+	float Vcounter = 0.0;
+	float Upcounter = 0.0;
+	float Advcounter = 0.0;
+	float Rcounter = 0.0;
+	float Dcounter = 0.0;
+	int Dir [] = {1,2,2,1,2,2,0,2,1,3};
+	float IzqLCount = 0.0;
+	float DerLCount = 0.0;
+	float RotLCount = 0.0;
+	float AdLCounter = 0.0;
+	int stateDoor = 0;
+	float dorRotCount = 0.0;
+	int stateL = 0;
+	int i = 0;
 
 	lastTime= TimeManager::Instance().GetTime();
 	while (psi) {
@@ -998,7 +1035,7 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 
 		//Helicoptero
-		glm::mat4 modelMatrixHeliChasis = glm::mat4(1.0);
+		glm::mat4 modelMatrixHeliChasis = glm::mat4(matrixModelHeli);
 		modelMatrixHeliChasis = glm::translate(modelMatrixHeliChasis, glm::vec3(-10.0, 5.0, 5.0));
 		modelHeliChasis.render(modelMatrixHeliChasis);
 		glActiveTexture(GL_TEXTURE0);
@@ -1010,6 +1047,23 @@ void applicationLoop() {
 		modelHeliMid.render(modelMatrixHeliHeli);
 		glActiveTexture(GL_TEXTURE0);
 
+		// Lambo car
+		/*glm::mat4 modelMatrixLamboChasis = glm::mat4(matrixModelLambo);
+		modelMatrixLamboChasis = glm::translate(modelMatrixLamboChasis, glm::vec3(0.0, 0.0, 0.0));
+		modelLamboChasis.render(modelMatrixLamboChasis);
+		glActiveTexture(GL_TEXTURE0);*/
+		
+		modelLambo.render(matrixModelLambo);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 modelMatrixLamboLeftDor = glm::mat4(matrixModelLambo);
+		modelMatrixLamboLeftDor = glm::translate(modelMatrixLamboLeftDor, glm::vec3(1.08676, 0.707316, 0.982601));
+		modelMatrixLamboLeftDor = glm::rotate(modelMatrixLamboLeftDor, glm::radians(dorRotCount), glm::vec3(1.0, 0, 0));
+		modelMatrixLamboLeftDor = glm::translate(modelMatrixLamboLeftDor, glm::vec3(-1.08676, -0.707316, -0.982601));
+		modelLamboLeftDor.render(modelMatrixLamboLeftDor);
+		glActiveTexture(GL_TEXTURE0);
+
+		
 
 
 		/*******************************************
@@ -1071,6 +1125,134 @@ void applicationLoop() {
 			}
 			break;
 		}
+
+
+		switch (stateH) {
+		case 0:
+			
+				matrixModelHeli = glm::translate(matrixModelHeli, glm::vec3(0.0, 0.1, 0.0));
+				Upcounter += 0.1;
+				
+				if (Upcounter > 10) {
+					Upcounter = 0.0;
+					stateH = 1;
+				}
+			
+			break;
+		case 1:
+			
+				matrixModelHeli = glm::translate(matrixModelHeli, glm::vec3(0.0, 0.0, 0.1));
+				Advcounter += 0.1;
+
+				if (Advcounter >10) {
+					Advcounter = 0.0;
+					stateH = 2;
+				}
+			
+			break;
+		case 2:
+
+			if (Vcounter < 720) {
+				matrixModelHeli = glm::translate(matrixModelHeli, glm::vec3(0.0, 0.0, 0.0));
+				matrixModelHeli = glm::rotate(matrixModelHeli, glm::radians(0.5f), glm::vec3(0, 1, 0));
+				Rcounter += 0.5;
+
+				if (Rcounter > 90.0) {
+					Rcounter = 0;
+					stateH = 1;
+				}
+				else { Vcounter++;}
+			}
+			else { stateH = 3; }
+
+			break;
+
+		case 3:
+		    
+			matrixModelHeli = glm::translate(matrixModelHeli, glm::vec3(0.0, -0.1, 0.0));
+			Dcounter += 0.1;
+			
+				if (Dcounter > 10) {
+					Vcounter = 0.0;
+					Dcounter = 0.0;
+					Rcounter = 0.0;
+					Advcounter = 0.0;
+					stateH = 0;
+				}
+
+		
+		}
+
+		switch (stateL) {
+		case 0:
+			matrixModelLambo = glm::translate(matrixModelLambo, glm::vec3(0.0, 0.0, 0.1));
+			AdLCounter += 0.1;
+			if (AdLCounter > 10) {
+				AdLCounter = 0.0;
+				if (Dir[i] == 1) { stateL = 1; }
+				else if (Dir[i] == 2) { stateL = 2; }
+				else if (Dir[i] == 3) { stateL = 3; }
+				else {
+					i++;
+					stateL = 0; }
+			}
+			break;
+
+		case 1:
+			matrixModelLambo = glm::translate(matrixModelLambo, glm::vec3(0,0,0));
+			matrixModelLambo = glm::rotate(matrixModelLambo, glm::radians(0.5f), glm::vec3(0, 1, 0));
+			
+			IzqLCount += 0.5f;
+
+			if (IzqLCount >= 90.0) {
+				IzqLCount = 0;
+				i++;
+				stateL = 0;
+			}
+			break;
+
+		case 2:
+			matrixModelLambo = glm::translate(matrixModelLambo, glm::vec3(0,0,0));
+			matrixModelLambo = glm::rotate(matrixModelLambo, glm::radians(-0.5f), glm::vec3(0, 1, 0));
+			
+			DerLCount += 0.5f;
+
+			if (DerLCount >=90.0) {
+				DerLCount = 0;
+				i++;
+				stateL = 0;
+			}
+			break;
+
+		case 3:
+			matrixModelLambo = glm::translate(matrixModelLambo, glm::vec3(0,0,0));
+			matrixModelLambo = glm::rotate(matrixModelLambo, glm::radians(1.0f), glm::vec3(0, 1, 0));
+			
+			RotLCount += 0.5f;
+
+			if (RotLCount >= 90.0) {
+				RotLCount = 0;
+				stateL = 4;
+			}
+			break;
+		
+		case 4:
+			dorRotCount += 0.5;
+			if (dorRotCount > 75)
+				stateL = 5;
+			break;
+		case 5:
+			dorRotCount -= 0.5;
+			if (dorRotCount < 0) {
+				dorRotCount = 0.0;
+				i = 0;
+				stateL = 0;
+			}
+			break;
+
+
+		}
+
 		glfwSwapBuffers(window);
 	}
 }
